@@ -1,0 +1,30 @@
+{% load url from future %}
+{% if all_form_templates %}
+<table>
+	<thead>
+		<td>Name</td><td>String Fields</td><td>Number Fields</td><td>List Fields</td>
+	</thead>
+	{% for form_template in all_form_templates %}
+	<tr>
+		<td><a href="{% url 'detail' form_template.id %}">{{ form_template.name }}</a></td>
+		<td>
+			{% for string_field in form_template.stringfield_set.all %}
+			{{ string_field.name }}<br/>
+			{% endfor %}
+		</td>
+		<td>
+			{% for number_field in form_template.numberfield_set.all %}
+			{{ number_field.name }}<br/>
+			{% endfor %}
+		</td>
+		<td>
+			{% for list_field in form_template.listfield_set.all %}
+			{{ list_field.name }}<br/>
+			{% endfor %}
+		</td>
+	</tr>
+	{% endfor %}
+</table>
+{% else %}
+<p>No forms are available.</p>
+{% endif %}
