@@ -1,9 +1,48 @@
-<html>
-	<head>
-	</head>
-	<body>
-		<div>
-			<h1>{{ form_template.name }}</h1>
-		</div>
-	</body>
-</html>
+{% extends "form_templates/header.html" %}
+{% load ft_extras %}
+{% block content %}
+<div>
+	<h1>{{ form_template.name }}</h1>
+</div>
+<div>
+	<table>
+		<thead>
+			{% for string_field in form_template.stringfield_set.all %}
+			<td>
+				{{ string_field.name }}
+			</td>
+			{% endfor %}
+			{% for number_field in form_template.numberfield_set.all %}
+			<td>
+				{{ number_field.name }}
+			</td>
+			{% endfor %}
+			{% for list_field in form_template.listfield_set.all %}
+			<td>
+				{{ list_field.name }}
+			</td>
+			{% endfor %}
+		</thead>
+		<tbody>
+			<tr>
+				{% for string_field in form_template.stringfield_set.all %}
+				<td>
+					{{ field_data.StringFields|key:string_field.name|default:'-' }}
+				</td>
+				{% endfor %}
+				{% for number_field in form_template.numberfield_set.all %}
+				<td>
+					{{ field_data.NumberFields|key:number_field.name|default:'0' }}
+				</td>
+				{% endfor %}
+				{% for list_field in form_template.listfield_set.all %}
+				<td>
+					{{ field_data.ListFields|key:list_field.name|default:'-' }}
+				</td>
+				{% endfor %}
+			</tr>
+		</tbody>
+	</table>
+</div>
+{% endblock %}
+

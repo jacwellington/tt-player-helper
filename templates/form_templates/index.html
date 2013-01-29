@@ -1,4 +1,6 @@
+{% extends "form_templates/header.html" %}
 {% load url from future %}
+{% block content %}
 {% if all_form_templates %}
 <table>
 	<thead>
@@ -28,3 +30,4 @@
 {% else %}
 <p>No forms are available.</p>
 {% endif %}
+{% endblock %}
